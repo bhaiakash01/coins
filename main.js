@@ -1,49 +1,44 @@
-const Coin = {
+let coin = {
     state: 0,
-    flip: function () {
-
-        if (Math.random() > .5) {
-            this.state = 0;
-        } else {
-            this.state = 1;
-        }
+    flip: function() {
+        this.state = Math.floor(Math.random() * 2);
+        return this.toString();
+        /* 1. Randomly set your coin object's "state" property to be either 
+           0 or 1: use "this.state" to access the "state" property on this object.*/
     },
-    toHTML: function () {
-        const image = document.createElement('img');
-
-        if (this.state === 0) {
-            image.src = "./images/CoinHead.png"
-            image.width = "90";
-            image.height = "90";
-
-        } else {
-            image.src = "./images/CoinTails.jpeg"
-            image.width = "90";
-            image.height = "90";
-
+    toString: function() {
+        if(this.state==0){return "Heads"}else{return "Tails"}
+        /* 2. Return the string "Heads" or "Tails", depending on whether
+           "this.state" is 0 or 1. */
+    },
+    toHTML: function() {
+        let image = document.createElement('img');
+         image.setAttribute("style", "height:200px; width:150px;");
+        if (this.state==0){
+            image.src="./images/coinHead.png"
         }
+        else {
+            image.src="./images/coinTails.jpeg"
+        }
+        /* 3. Set the properties of this image element to show either face-up
+           or face-down, depending on whether this.state is 0 or 1.*/
         return image;
-    }
+       },
+    
+  
+}; 
+ function display20Images() {
+    for(let i=0; i<20; i++){
+     coin.flip();
+   document.querySelector("body").append(coin.toHTML())}
 }
-
-function display20Flips() {
-    const results = [];
-
-    for (var i = 0; i < 20; i++) {
-        Coin.flip();
-        document.write(Coin.toString());
-        results.push(Coin.toString());
-    }
-    return results;
+   function display20Flips() {
+     for(let i=0; i<20; i++){
+     coin.flip();
+     let flip = document.createElement('span');
+     flip.innerHTML =  `${(i+1)}.<strong> ${coin.toString()} </strong>`;
+     document.querySelector("body").append(flip);
+ }
 }
-function display20Images() {
-    const results = [];
-
-    for (var i = 0; i < 20; i++) {
-        Coin.flip();
-        document.querySelector('body').appendChild(Coin.toHTML());
-        results.push(Coin.toHTML());
-    }
-    return results;
-}
-display20Images();
+display20Flips()
+display20Images()
